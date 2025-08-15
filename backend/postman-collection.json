@@ -1,0 +1,433 @@
+{
+  "info": {
+    "name": "Web App Test Portal API",
+    "description": "Complete API collection for testing the exam portal backend",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "authToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "adminToken",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Authentication",
+      "item": [
+        {
+          "name": "Register Student",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"student@test.com\",\n  \"password\": \"password123\",\n  \"firstName\": \"Test\",\n  \"lastName\": \"Student\",\n  \"role\": \"student\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Register Admin",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@test.com\",\n  \"password\": \"admin123\",\n  \"firstName\": \"Test\",\n  \"lastName\": \"Admin\",\n  \"role\": \"admin\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Login Student",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const responseJson = pm.response.json();",
+                  "    pm.collectionVariables.set('authToken', responseJson.token);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"student@test.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Login Admin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const responseJson = pm.response.json();",
+                  "    pm.collectionVariables.set('adminToken', responseJson.token);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@test.com\",\n  \"password\": \"admin123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "login"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Exams Management",
+      "item": [
+        {
+          "name": "Create Exam",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Test Exam for Questions\",\n  \"description\": \"An exam to test question functionality\",\n  \"duration\": 60,\n  \"totalQuestions\": 5,\n  \"passingScore\": 70,\n  \"scheduledStartTime\": \"2025-07-30T10:00:00.000Z\",\n  \"scheduledEndTime\": \"2025-07-30T18:00:00.000Z\",\n  \"isPublished\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/exams",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "exams"]
+            }
+          }
+        },
+        {
+          "name": "Get All Exams",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/exams",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "exams"]
+            }
+          }
+        },
+        {
+          "name": "Get Published Exams",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/exams/published",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "exams", "published"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Questions Management",
+      "item": [
+        {
+          "name": "Create Single Choice Question",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"examId\": 1,\n  \"questionType\": \"single-choice\",\n  \"questionText\": \"What is the capital of France?\",\n  \"points\": 5,\n  \"explanation\": \"Paris is the capital and largest city of France.\",\n  \"questionData\": {\n    \"options\": [\n      {\n        \"id\": \"opt1\",\n        \"text\": \"London\",\n        \"isCorrect\": false\n      },\n      {\n        \"id\": \"opt2\",\n        \"text\": \"Paris\",\n        \"isCorrect\": true\n      },\n      {\n        \"id\": \"opt3\",\n        \"text\": \"Berlin\",\n        \"isCorrect\": false\n      },\n      {\n        \"id\": \"opt4\",\n        \"text\": \"Madrid\",\n        \"isCorrect\": false\n      }\n    ],\n    \"correctAnswer\": \"opt2\",\n    \"randomizeOptions\": false\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/questions",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "questions"]
+            }
+          }
+        },
+        {
+          "name": "Create Multiple Choice Question",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"examId\": 1,\n  \"questionType\": \"multiple-choice\",\n  \"questionText\": \"Which of the following are programming languages? (Select all that apply)\",\n  \"points\": 10,\n  \"explanation\": \"JavaScript, Python, and Java are all programming languages.\",\n  \"questionData\": {\n    \"options\": [\n      {\n        \"id\": \"opt1\",\n        \"text\": \"JavaScript\",\n        \"isCorrect\": true\n      },\n      {\n        \"id\": \"opt2\",\n        \"text\": \"HTML\",\n        \"isCorrect\": false\n      },\n      {\n        \"id\": \"opt3\",\n        \"text\": \"Python\",\n        \"isCorrect\": true\n      },\n      {\n        \"id\": \"opt4\",\n        \"text\": \"Java\",\n        \"isCorrect\": true\n      }\n    ],\n    \"correctAnswers\": [\"opt1\", \"opt3\", \"opt4\"],\n    \"minSelections\": 1,\n    \"maxSelections\": 4,\n    \"partialCredit\": true\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/questions",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "questions"]
+            }
+          }
+        },
+        {
+          "name": "Create Drag-Drop Question",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"examId\": 1,\n  \"questionType\": \"drag-drop\",\n  \"questionText\": \"Match the programming concepts with their definitions:\",\n  \"points\": 15,\n  \"explanation\": \"Understanding programming concepts is fundamental.\",\n  \"questionData\": {\n    \"subType\": \"matching\",\n    \"dragItems\": [\n      {\n        \"id\": \"item1\",\n        \"content\": \"Variable\",\n        \"type\": \"text\"\n      },\n      {\n        \"id\": \"item2\",\n        \"content\": \"Function\",\n        \"type\": \"text\"\n      },\n      {\n        \"id\": \"item3\",\n        \"content\": \"Loop\",\n        \"type\": \"text\"\n      }\n    ],\n    \"dropTargets\": [\n      {\n        \"id\": \"target1\",\n        \"label\": \"A container for storing data\",\n        \"description\": \"Stores values that can be changed\",\n        \"correctItemId\": \"item1\",\n        \"acceptsMultiple\": false\n      },\n      {\n        \"id\": \"target2\",\n        \"label\": \"A reusable block of code\",\n        \"description\": \"Performs a specific task\",\n        \"correctItemId\": \"item2\",\n        \"acceptsMultiple\": false\n      },\n      {\n        \"id\": \"target3\",\n        \"label\": \"Repeats code execution\",\n        \"description\": \"Iterates until condition is met\",\n        \"correctItemId\": \"item3\",\n        \"acceptsMultiple\": false\n      }\n    ],\n    \"correctMappings\": {\n      \"item1\": \"target1\",\n      \"item2\": \"target2\",\n      \"item3\": \"target3\"\n    },\n    \"allowPartialCredit\": true,\n    \"showLabels\": true\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/questions",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "questions"]
+            }
+          }
+        },
+        {
+          "name": "Create Short Answer Question",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"examId\": 1,\n  \"questionType\": \"short-answer\",\n  \"questionText\": \"Explain what REST API stands for and its main purpose.\",\n  \"points\": 8,\n  \"explanation\": \"REST stands for Representational State Transfer.\",\n  \"questionData\": {\n    \"inputType\": \"text\",\n    \"maxLength\": 500,\n    \"expectedAnswers\": [\n      {\n        \"text\": \"Representational State Transfer - architectural style for web services\",\n        \"keywords\": [\"REST\", \"Representational\", \"State\", \"Transfer\", \"API\", \"web services\"],\n        \"points\": 8\n      }\n    ],\n    \"gradingType\": \"keyword\",\n    \"gradingRubric\": \"Award points for mentioning REST definition and web services\",\n    \"caseSensitive\": false,\n    \"allowPartialCredit\": true\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/questions",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "questions"]
+            }
+          }
+        },
+        {
+          "name": "Create Case Study Question",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"examId\": 1,\n  \"questionType\": \"case-study\",\n  \"questionText\": \"Case Study: E-commerce Website Development\",\n  \"points\": 20,\n  \"explanation\": \"This case study tests comprehensive understanding of web development.\",\n  \"questionData\": {\n    \"caseStudyText\": \"You are tasked with developing an e-commerce website. The website needs to handle user authentication, product catalog, shopping cart, and payment processing. The client expects high performance and security.\",\n    \"attachments\": [],\n    \"subQuestions\": [\n      {\n        \"id\": \"sub1\",\n        \"questionText\": \"Which database would be most suitable for this project?\",\n        \"type\": \"single-choice\",\n        \"points\": 5,\n        \"options\": [\n          {\n            \"id\": \"opt1\",\n            \"text\": \"MongoDB\",\n            \"isCorrect\": false\n          },\n          {\n            \"id\": \"opt2\",\n            \"text\": \"PostgreSQL\",\n            \"isCorrect\": true\n          },\n          {\n            \"id\": \"opt3\",\n            \"text\": \"Redis\",\n            \"isCorrect\": false\n          }\n        ],\n        \"correctAnswer\": \"opt2\"\n      },\n      {\n        \"id\": \"sub2\",\n        \"questionText\": \"What security measures should be implemented?\",\n        \"type\": \"multiple-choice\",\n        \"points\": 10,\n        \"options\": [\n          {\n            \"id\": \"opt1\",\n            \"text\": \"HTTPS encryption\",\n            \"isCorrect\": true\n          },\n          {\n            \"id\": \"opt2\",\n            \"text\": \"Input validation\",\n            \"isCorrect\": true\n          },\n          {\n            \"id\": \"opt3\",\n            \"text\": \"SQL injection prevention\",\n            \"isCorrect\": true\n          },\n          {\n            \"id\": \"opt4\",\n            \"text\": \"Storing passwords in plain text\",\n            \"isCorrect\": false\n          }\n        ],\n        \"correctAnswers\": [\"opt1\", \"opt2\", \"opt3\"]\n      },\n      {\n        \"id\": \"sub3\",\n        \"questionText\": \"Describe the payment processing architecture you would implement.\",\n        \"type\": \"short-answer\",\n        \"points\": 5\n      }\n    ]\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/questions",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "questions"]
+            }
+          }
+        },
+        {
+          "name": "Get Questions by Exam ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/questions/exam/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "questions", "exam", "1"]
+            }
+          }
+        },
+        {
+          "name": "Get Questions by Type",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/questions/exam/1/type/single-choice",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "questions", "exam", "1", "type", "single-choice"]
+            }
+          }
+        },
+        {
+          "name": "Get Single Question",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/questions/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "questions", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update Question",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"questionText\": \"What is the capital city of France?\",\n  \"points\": 6,\n  \"explanation\": \"Paris is the capital and most populous city of France.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/questions/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "questions", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Question",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/questions/5",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "questions", "5"]
+            }
+          }
+        },
+        {
+          "name": "Reorder Questions",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },\n              {\n                \"key\": \"Authorization\",\n                \"value\": \"Bearer {{adminToken}}\"\n              }\n            ],\n            \"body\": {\n              \"mode\": \"raw\",\n              \"raw\": \"{\\n  \\\"questionOrders\\\": [\\n    {\\n      \\\"questionId\\\": 1,\\n      \\\"orderIndex\\\": 1\\n    },\\n    {\\n      \\\"questionId\\\": 2,\\n      \\\"orderIndex\\\": 2\\n    },\\n    {\\n      \\\"questionId\\\": 3,\\n      \\\"orderIndex\\\": 3\\n    }\\n  ]\\n}\"\n            },\n            \"url\": {\n              \"raw\": \"{{baseUrl}}/api/questions/exam/1/reorder\",\n              \"host\": [\"{{baseUrl}}\"],\n              \"path\": [\"api\", \"questions\", \"exam\", \"1\", \"reorder\"]\n            }\n          }\n        },\n        {\n          \"name\": \"Bulk Create Questions\",\n          \"request\": {\n            \"method\": \"POST\",\n            \"header\": [\n              {\n                \"key\": \"Content-Type\",\n                \"value\": \"application/json\"\n              },\n              {\n                \"key\": \"Authorization\",\n                \"value\": \"Bearer {{adminToken}}\"\n              }\n            ],\n            \"body\": {\n              \"mode\": \"raw\",\n              \"raw\": \"{\\n  \\\"examId\\\": 1,\\n  \\\"questions\\\": [\\n    {\\n      \\\"questionType\\\": \\\"single-choice\\\",\\n      \\\"questionText\\\": \\\"What is 2 + 2?\\\",\\n      \\\"points\\\": 2,\\n      \\\"questionData\\\": {\\n        \\\"options\\\": [\\n          {\\n            \\\"id\\\": \\\"opt1\\\",\\n            \\\"text\\\": \\\"3\\\",\\n            \\\"isCorrect\\\": false\\n          },\\n          {\\n            \\\"id\\\": \\\"opt2\\\",\\n            \\\"text\\\": \\\"4\\\",\\n            \\\"isCorrect\\\": true\\n          },\\n          {\\n            \\\"id\\\": \\\"opt3\\\",\\n            \\\"text\\\": \\\"5\\\",\\n            \\\"isCorrect\\\": false\\n          }\\n        ],\\n        \\\"correctAnswer\\\": \\\"opt2\\\"\\n      }\\n    },\\n    {\\n      \\\"questionType\\\": \\\"single-choice\\\",\\n      \\\"questionText\\\": \\\"What is 3 + 3?\\\",\\n      \\\"points\\\": 2,\\n      \\\"questionData\\\": {\\n        \\\"options\\\": [\\n          {\\n            \\\"id\\\": \\\"opt1\\\",\\n            \\\"text\\\": \\\"5\\\",\\n            \\\"isCorrect\\\": false\\n          },\\n          {\\n            \\\"id\\\": \\\"opt2\\\",\\n            \\\"text\\\": \\\"6\\\",\\n            \\\"isCorrect\\\": true\\n          },\\n          {\\n            \\\"id\\\": \\\"opt3\\\",\\n            \\\"text\\\": \\\"7\\\",\\n            \\\"isCorrect\\\": false\\n          }\\n        ],\\n        \\\"correctAnswer\\\": \\\"opt2\\\"\\n      }\\n    }\\n  ]\\n}\"\n            },\n            \"url\": {\n              \"raw\": \"{{baseUrl}}/api/questions/bulk\",\n              \"host\": [\"{{baseUrl}}\"],\n              \"path\": [\"api\", \"questions\", \"bulk\"]\n            }\n          }\n        }\n      ]\n    },\n    {\n      \"name\": \"4. Test Validation\",\n      \"item\": [\n        {\n          \"name\": \"Test Server Health\",\n          \"request\": {\n            \"method\": \"GET\",\n            \"header\": [],\n            \"url\": {\n              \"raw\": \"{{baseUrl}}/api/health\",\n              \"host\": [\"{{baseUrl}}\"],\n              \"path\": [\"api\", \"health\"]\n            }\n          }\n        },\n        {\n          \"name\": \"Test Database Connection\",\n          \"request\": {\n            \"method\": \"GET\",\n            \"header\": [\n              {\n                \"key\": \"Authorization\",\n                \"value\": \"Bearer {{adminToken}}\"\n              }\n            ],\n            \"url\": {\n              \"raw\": \"{{baseUrl}}/api/test-db\",\n              \"host\": [\"{{baseUrl}}\"],\n              \"path\": [\"api\", \"test-db\"]\n            }\n          }\n        }\n      ]\n    }\n  ]\n}

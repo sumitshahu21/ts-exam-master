@@ -1,0 +1,9 @@
+{
+  "name": "database-setup",
+  "version": "1.0.0",
+  "main": "setup-db.js",
+  "dependencies": {
+    "mssql": "^11.0.1",
+    "dotenv": "^16.4.7"
+  }
+}
