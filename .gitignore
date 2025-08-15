@@ -137,6 +137,35 @@ backend/minimal-*.js
 *_NEW.*
 *_fixed.*
 
+# Duplicate React components and pages
+src/pages/admin/AdminDashboard-clean.tsx
+src/pages/admin/AdminDashboard-new.tsx
+src/pages/admin/AdminDashboard.fresh.tsx
+src/pages/admin/EnhancedAdminDashboard.tsx
+src/pages/admin/ExamCreator-integrated.tsx
+src/pages/admin/ExamCreator-old.tsx
+src/pages/admin/ExamCreator-simple.tsx
+src/pages/admin/ExamCreator_Clean.tsx
+src/pages/admin/ExamCreator_NEW.tsx
+src/pages/admin/ManageExams_fixed.tsx
+src/pages/admin/StudentResults_fixed.tsx
+src/pages/student/EnhancedStudentDashboard.tsx
+src/components/layout/EnhancedLayout.tsx
+
+# Backend duplicate files
+backend/working-server-backup.js
+backend/working-server-clean.js
+backend/src/
+backend/table-creator-server.js
+backend/database-setup-server.ts
+backend/test-db.ts
+
+# Main test file (keep only main.tsx)
+src/main-test.tsx
+
+# Fallback styles (not needed if main styles work)
+src/fallback-styles.css
+
 # Logs
 logs/
 *.log
