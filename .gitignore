@@ -47,6 +47,7 @@ backend/clear-test-data.js
 *-READY.md
 *-FIXED*.md
 *-ENHANCEMENT*.md
+*-SYSTEM.md
 DEBUGGING_*.md
 *-ERROR-*.md
 *-INTEGRATION-*.md
@@ -66,6 +67,8 @@ RESTART-*.md
 IS_PUBLISHED_*.md
 DRAG-DROP-*.md
 ANTI-CHEAT-*.md
+ADMIN-INVITE-CODE-SYSTEM.md
+EMAIL-SETUP-GUIDE.md
 
 # All test, debug, and setup files
 test-*.js
@@ -74,8 +77,10 @@ debug-*.js
 quick-*.js
 simple-*.js
 check-*.js
+check-*.cjs
 create-test-*.js
 create-comprehensive-*.js
+create-submission-*.js
 diagnose-*.js
 fix-*.js
 setup-*.js
