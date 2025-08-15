@@ -21,6 +21,109 @@ build/
 .env.test.local
 .env.production.local
 
+# Database configuration files with credentials
+**/config.js
+**/database-config.js
+azure-sql-setup.js
+setup-azure-sql.js
+
+# All temporary and debug files
+*-SUMMARY.md
+*-FIX*.md
+*-COMPLETE.md
+*-READY.md
+*-FIXED*.md
+*-ENHANCEMENT*.md
+DEBUGGING_*.md
+*-ERROR-*.md
+*-INTEGRATION-*.md
+*-IMPLEMENTATION-*.md
+BUG-FIXES-*.md
+EDIT-EXAM-*.md
+LOGIN_FIX_*.md
+MANAGE-EXAMS-*.md
+PUBLISH_STATUS_*.md
+ROUTING-*.md
+SCHEDULING-*.md
+SERVER-*.md
+STUDENT-*.md
+SUBMISSION-*.md
+TAILWIND-*.md
+RESTART-*.md
+IS_PUBLISHED_*.md
+DRAG-DROP-*.md
+ANTI-CHEAT-*.md
+
+# All test, debug, and setup files
+test-*.js
+temp-*.js
+debug-*.js
+quick-*.js
+simple-*.js
+check-*.js
+create-test-*.js
+create-comprehensive-*.js
+diagnose-*.js
+fix-*.js
+setup-*.js
+clean-*.js
+emergency-*.js
+restart-*.js
+comprehensive-*.js
+verify-*.js
+add-*.js
+migrate-*.js
+update-*.js
+truncate-*.js
+clear-*.js
+generate-*.js
+initialize-*.js
+minimal-*.js
+
+# All batch and shell scripts
+*.bat
+*.ps1
+*.sh
+
+# All SQL files (keep schema in code, not as separate files)
+*.sql
+
+# Backend files with hardcoded credentials
+backend/create-*.js
+backend/setup-*.js
+backend/test-*.js
+backend/debug-*.js
+backend/fix-*.js
+backend/migrate-*.js
+backend/update-*.js
+backend/verify-*.js
+backend/add-*.js
+backend/clean-*.js
+backend/truncate-*.js
+backend/clear-*.js
+backend/generate-*.js
+backend/initialize-*.js
+backend/working-server-backup.js
+backend/working-server-clean.js
+backend/table-creator-server.js
+backend/database-setup-server.ts
+backend/ultra-safe-*.js
+backend/safe-*.js
+backend/minimal-*.js
+
+# Alternative/backup files
+*-old.*
+*-backup.*
+*-clean.*
+*-new.*
+*-simple.*
+*-integrated.*
+*-fixed.*
+*-fresh.*
+*_Clean.*
+*_NEW.*
+*_fixed.*
+
 # Logs
 logs/
 *.log
@@ -82,62 +185,6 @@ temp/
 *.tmp
 *.backup
 *.bak
-
-# Test and debug files (keep these out of production)
-test-*.js
-temp-*.js
-debug-*.js
-quick-*.js
-simple-*.js
-check-*.js
-create-test-*.js
-diagnose-*.js
-fix-*.js
-setup-*.js
-clean-*.js
-emergency-*.js
-restart-*.js
-comprehensive-*.js
-
-# Batch and shell scripts (keep only essential ones)
-start-*.bat
-stop-*.bat
-fix-*.bat
-start-*.ps1
-stop-*.ps1
-
-# Documentation files that are temporary or fix-related
-*-SUMMARY.md
-*-FIX*.md
-*-COMPLETE.md
-*-READY.md
-*-FIXED*.md
-DEBUGGING_*.md
-*-ERROR-*.md
-*-INTEGRATION-*.md
-*-IMPLEMENTATION-*.md
-BUG-FIXES-*.md
-EDIT-EXAM-*.md
-LOGIN_FIX_*.md
-MANAGE-EXAMS-*.md
-PUBLISH_STATUS_*.md
-ROUTING-*.md
-SCHEDULING-*.md
-SERVER-*.md
-STUDENT-*.md
-SUBMISSION-*.md
-TAILWIND-*.md
-
-# SQL files that are temporary or test-related
-create-database-tables.sql
-create-submission-tables.sql
-enhanced-schema-updates.sql
-safe-schema-updates.sql
-EXECUTE_THIS_IN_SSMS.sql
-
-# Configuration files that might contain sensitive data
-azure-sql-setup.js
-setup-azure-sql.js
 
 # Cache directories
 .cache/
