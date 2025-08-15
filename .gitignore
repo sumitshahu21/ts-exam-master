@@ -27,6 +27,19 @@ build/
 azure-sql-setup.js
 setup-azure-sql.js
 
+# Backend files with hardcoded database credentials
+backend/add-password-reset-fields.js
+backend/add-otp-fields.js
+backend/add-admin-code-column.js
+backend/create-tables-azure.js
+backend/create-tables-simple.js
+backend/create-new-schema.js
+backend/create-hybrid-schema.js
+backend/create-admin-codes-table.js
+backend/create-questions-table.js
+backend/cleanup-specific-duplicate.js
+backend/clear-test-data.js
+
 # All temporary and debug files
 *-SUMMARY.md
 *-FIX*.md
