@@ -35,7 +35,7 @@ export default function ResetPassword() {
     handleSubmit,
     formState: { errors },
     setValue,
-    watch,
+    // watch function available from useForm hook if needed
   } = useForm<ResetPasswordFormData>({
     resolver: zodResolver(resetPasswordSchema),
   });

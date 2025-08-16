@@ -151,7 +151,7 @@ export const examService = {
     scheduledEndTime: string;
     isPublished: boolean;
   }>): Promise<{ success: boolean; message: string }> {
-    const response = await apiClient.put(`/exams/${examId}`, examData);
+    await apiClient.put(`/exams/${examId}`, examData);
     return {
       success: true,
       message: 'Exam updated successfully'
@@ -160,7 +160,7 @@ export const examService = {
 
   // Delete exam
   async deleteExam(examId: number): Promise<{ success: boolean; message: string }> {
-    const response = await apiClient.delete(`/exams/${examId}`);
+    await apiClient.delete(`/exams/${examId}`);
     return {
       success: true,
       message: 'Exam deleted successfully'
@@ -238,7 +238,7 @@ export const questionService = {
     explanation?: string;
     questionData: any;
   }): Promise<{ success: boolean; message: string }> {
-    const response = await apiClient.put(`/questions/${questionId}`, {
+    await apiClient.put(`/questions/${questionId}`, {
       ...questionData,
       points: questionData.marks // Backend expects 'points' not 'marks'
     });
@@ -250,7 +250,7 @@ export const questionService = {
 
   // Delete question
   async deleteQuestion(questionId: number): Promise<{ success: boolean; message: string }> {
-    const response = await apiClient.delete(`/questions/${questionId}`);
+    await apiClient.delete(`/questions/${questionId}`);
     return {
       success: true,
       message: 'Question deleted successfully'

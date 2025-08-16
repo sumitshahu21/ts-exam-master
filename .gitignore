@@ -195,6 +195,9 @@ src/main-test.tsx
 # Fallback styles (not needed if main styles work)
 src/fallback-styles.css
 
+# Debug components (not used in production)
+src/components/DebugInfo.tsx
+
 # Logs
 logs/
 *.log

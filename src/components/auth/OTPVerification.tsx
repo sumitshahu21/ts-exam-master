@@ -16,7 +16,7 @@ function OTPVerification({ email, onVerificationSuccess, onBack }: OTPVerificati
   const [timeLeft, setTimeLeft] = useState(600); // 10 minutes in seconds
   const [canResend, setCanResend] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation();
+  // Location available via useLocation() hook if needed for redirect logic
 
   // Timer for OTP expiration
   useEffect(() => {
