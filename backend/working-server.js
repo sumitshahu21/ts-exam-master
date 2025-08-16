@@ -4054,10 +4054,19 @@ const startServer = async () => {
   }
 };
 
-// Start the server
-startServer();
+// Start the server only in local development, not on Vercel
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+  startServer();
+}
 
-// Graceful shutdown handling
+// For Vercel serverless deployment, we need to initialize the database connection
+// and export the app without starting a server
+if (process.env.VERCEL) {
+  // Initialize database connection for serverless
+  connectDB().catch(console.error);
+}
+
+// Graceful shutdown handling (only for local development)
 process.on('SIGINT', () => {
   console.log('🛑 Received SIGINT, shutting down gracefully...');
   process.exit(0);
