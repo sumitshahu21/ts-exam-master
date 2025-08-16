@@ -19,24 +19,15 @@
       "dest": "/backend/working-server.js"
     },
     {
-      "src": "/assets/(.*)",
-      "headers": { "cache-control": "s-maxage=31536000,immutable" },
-      "dest": "/assets/$1"
-    },
-    {
-      "src": "/(.*\\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot|map))",
-      "headers": { "cache-control": "s-maxage=31536000,immutable" },
-      "dest": "/$1"
-    },
-    {
-      "src": "/vite.svg",
-      "dest": "/vite.svg"
-    },
-    {
       "src": "/(.*)",
       "dest": "/index.html"
     }
   ],
+  "functions": {
+    "backend/working-server.js": {
+      "maxDuration": 30
+    }
+  },
   "env": {
     "NODE_ENV": "production"
   }
