@@ -20,8 +20,8 @@ const config = {
   user: process.env.DB_USER || 'sa',
   password: process.env.DB_PASSWORD || '',
   options: {
-    encrypt: process.env.NODE_ENV === 'production' ? true : false,
-    trustServerCertificate: process.env.NODE_ENV === 'production' ? false : true,
+    encrypt: process.env.DB_ENCRYPT === 'true' || process.env.NODE_ENV === 'production',
+    trustServerCertificate: process.env.DB_TRUST_SERVER_CERTIFICATE === 'true' || (process.env.NODE_ENV !== 'production'),
     enableArithAbort: true,
   },
   connectionTimeout: 30000,

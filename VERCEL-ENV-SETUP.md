@@ -12,6 +12,8 @@ DB_PORT=1433
 DB_NAME=exam_db
 DB_USER=ntms
 DB_PASSWORD=Dev@2024Test!
+DB_ENCRYPT=true
+DB_TRUST_SERVER_CERTIFICATE=false
 ```
 
 ### Application Configuration
