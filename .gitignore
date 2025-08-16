@@ -40,6 +40,30 @@ backend/create-questions-table.js
 backend/cleanup-specific-duplicate.js
 backend/clear-test-data.js
 
+# Backend SQL and database management files
+backend/*.sql
+backend/create-*.js
+backend/setup-*.js
+backend/migrate-*.js
+backend/update-*.js
+backend/fix-*.js
+backend/verify-*.js
+backend/initialize-*.js
+backend/generate-*.js
+backend/truncate-*.js
+backend/calculateScore-*.js
+backend/final-*.js
+backend/*-test-*.js
+backend/*-safe-*.js
+backend/ultra-*.js
+backend/minimal-*.js
+backend/*-summary.js
+
+# Backend documentation and config files not needed for deployment
+backend/API-Testing-Guide.md
+backend/FIXED-API-Testing-Guide.md
+backend/tsconfig.json
+
 # All temporary and debug files
 *-SUMMARY.md
 *-FIX*.md
