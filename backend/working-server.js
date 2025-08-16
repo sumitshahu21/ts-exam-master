@@ -12,16 +12,16 @@ const emailService = require('./emailService');
 
 const app = express();
 
-// Database configuration
+// Database configuration - using environment variables for security
 const config = {
-  server: 'ntms-sql-server.database.windows.net',
-  port: 1433,
-  database: 'exam_db',
-  user: 'ntms',
-  password: 'Dev@2024Test!',
+  server: process.env.DB_SERVER || 'localhost',
+  port: parseInt(process.env.DB_PORT) || 1433,
+  database: process.env.DB_NAME || 'exam_db',
+  user: process.env.DB_USER || 'sa',
+  password: process.env.DB_PASSWORD || '',
   options: {
-    encrypt: true,
-    trustServerCertificate: false,
+    encrypt: process.env.NODE_ENV === 'production' ? true : false,
+    trustServerCertificate: process.env.NODE_ENV === 'production' ? false : true,
     enableArithAbort: true,
   },
   connectionTimeout: 30000,
