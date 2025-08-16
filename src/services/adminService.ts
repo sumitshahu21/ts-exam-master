@@ -151,6 +151,7 @@ export const examService = {
     scheduledEndTime: string;
     isPublished: boolean;
   }>): Promise<{ success: boolean; message: string }> {
+    // Update exam via API
     await apiClient.put(`/exams/${examId}`, examData);
     return {
       success: true,
@@ -160,6 +161,7 @@ export const examService = {
 
   // Delete exam
   async deleteExam(examId: number): Promise<{ success: boolean; message: string }> {
+    // Delete exam via API
     await apiClient.delete(`/exams/${examId}`);
     return {
       success: true,
@@ -238,6 +240,7 @@ export const questionService = {
     explanation?: string;
     questionData: any;
   }): Promise<{ success: boolean; message: string }> {
+    // Update question via API
     await apiClient.put(`/questions/${questionId}`, {
       ...questionData,
       points: questionData.marks // Backend expects 'points' not 'marks'
@@ -250,6 +253,7 @@ export const questionService = {
 
   // Delete question
   async deleteQuestion(questionId: number): Promise<{ success: boolean; message: string }> {
+    // Delete question via API
     await apiClient.delete(`/questions/${questionId}`);
     return {
       success: true,

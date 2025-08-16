@@ -324,7 +324,7 @@ function MyResults() {
           <ResultDetailModal
             isOpen={isDetailModalOpen}
             onClose={closeDetailModal}
-            attemptId={selectedResult.attempt_id}
+            attemptId={Number(selectedResult.attempt_id)}
             resultData={selectedResult}
           />
         )}
