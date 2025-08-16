@@ -30,7 +30,13 @@ const config = {
 
 // Middleware
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: [
+    'http://localhost:5173',
+    'http://localhost:3000',
+    'https://ts-exam-master-g1po-git-main-sumitshahus-projects.vercel.app',
+    'https://ts-exam-master.vercel.app',
+    /\.vercel\.app$/
+  ],
   credentials: true
 }));
 app.use(express.json());

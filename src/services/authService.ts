@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create axios instance with default config
 const apiClient = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api',
   timeout: 60000, // Increased to 60 seconds for PDF exports and large data
   headers: {
     'Content-Type': 'application/json',

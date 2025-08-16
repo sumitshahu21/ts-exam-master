@@ -89,7 +89,7 @@ function OTPVerification({ email, onVerificationSuccess, onBack }: OTPVerificati
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:5000/api/auth/verify-otp', {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api'}/auth/verify-otp`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -124,7 +124,7 @@ function OTPVerification({ email, onVerificationSuccess, onBack }: OTPVerificati
     setResendLoading(true);
 
     try {
-      const response = await fetch('http://localhost:5000/api/auth/resend-otp', {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api'}/auth/resend-otp`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
