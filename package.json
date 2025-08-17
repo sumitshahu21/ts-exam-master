@@ -8,7 +8,6 @@
   "build": "tsc -b && vite build",
   "lint": "eslint .",
   "preview": "vite preview",
-  "start": "node backend/working-server.js"
 },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
