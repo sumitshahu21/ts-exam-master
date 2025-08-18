@@ -1,6 +1,5 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
-
 name: Build and deploy Node.js app to Azure Web App - exam-master-webapp
 
 on:
@@ -11,23 +10,39 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest  # Changed from windows-latest for better performance
     permissions:
       contents: read #This is required for actions/checkout
-
+    
     steps:
       - uses: actions/checkout@v4
-
+      
       - name: Set up Node.js version
         uses: actions/setup-node@v3
         with:
           node-version: '22.x'
-
-      - name: npm install, build, and test
+          cache: 'npm'  # Cache npm dependencies for faster builds
+      
+      - name: Install dependencies
+        run: npm ci  # Use npm ci for faster, reliable installs
+      
+      - name: Build React application
+        run: npm run build  # Removed --if-present to ensure build runs
+      
+      - name: Verify build output
         run: |
-          npm install
-          npm run build --if-present
-          npm run test --if-present
+          echo "Checking if dist folder exists..."
+          ls -la
+          if [ -d "dist" ]; then
+            echo "✅ dist folder found"
+            ls -la dist/
+          else
+            echo "❌ dist folder not found!"
+            exit 1
+          fi
+      
+      - name: Run tests (optional)
+        run: npm run test --if-present
       
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -41,12 +56,19 @@ jobs:
     permissions:
       id-token: write #This is required for requesting the JWT
       contents: read #This is required for actions/checkout
-
+    
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: node-app
+      
+      - name: Verify deployment package
+        run: |
+          echo "Files in deployment package:"
+          ls -la
+          echo "Checking for dist folder:"
+          ls -la dist/ || echo "No dist folder found!"
       
       - name: Login to Azure
         uses: azure/login@v2
@@ -54,7 +76,7 @@ jobs:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_F7CB8606AF6248FA90275546B9E8A090 }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_A2F220500AE94F5FA7FC93F7F11A2338 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_61352F5431C74FC6BAABB94AA896A490 }}
-
+      
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
@@ -62,4 +84,3 @@ jobs:
           app-name: 'exam-master-webapp'
           slot-name: 'Production'
           package: .
-          
