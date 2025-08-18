@@ -3,6 +3,7 @@ const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const sql = require('mssql');
+const path = require('path');
 
 // Import route handlers, standardized evaluation, and email service
 const initQuestionRoutes = require('./routes/questions');
@@ -3997,6 +3998,14 @@ const startServer = async () => {
   try {
     // Connect to database first
     await connectDB();
+
+    // Serve static files from dist directory (for React build)
+    app.use(express.static(path.join(__dirname, '../dist')));
+    
+    // Catch-all handler for React Router (add this AFTER all your API routes)
+    app.get('*', (req, res) => {
+      res.sendFile(path.join(__dirname, '../dist/index.html'));
+    });
     
     // Start server only after database connection is established
     app.listen(PORT, () => {
@@ -4054,8 +4063,8 @@ const startServer = async () => {
   }
 };
 
-// Start the server only in local development, not on Vercel
-if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+// Start the server on Azure (and local dev), but not on Vercel
+if (!process.env.VERCEL) {
   startServer();
 }
 
