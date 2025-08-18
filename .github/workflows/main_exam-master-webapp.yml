@@ -23,8 +23,13 @@ jobs:
           node-version: '22.x'
           cache: 'npm'  # Cache npm dependencies for faster builds
       
-      - name: Install dependencies
+      - name: Install frontend dependencies
         run: npm ci  # Use npm ci for faster, reliable installs
+      
+      - name: Install backend dependencies
+        run: |
+          cd backend
+          npm ci
       
       - name: Build React application
         run: npm run build  # Removed --if-present to ensure build runs
@@ -84,3 +89,7 @@ jobs:
           app-name: 'exam-master-webapp'
           slot-name: 'Production'
           package: .
+      
+      - name: Install backend dependencies on Azure
+        run: |
+          az webapp ssh --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} --name exam-master-webapp --command "cd backend && npm install"
