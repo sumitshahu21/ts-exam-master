@@ -1,66 +1,13 @@
 trigger:
 - main
 
-variables:
-  buildConfiguration: 'Release'
-  azureSubscription: 'azure-connection'
-  webAppName: 'exam-master-webapp'
+pool:
+  vmImage: 'ubuntu-latest'
 
-stages:
-- stage: Build
-  displayName: Build stage
-  jobs:
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: 'ubuntu-latest'
-    
-    steps:
-    - task: NodeTool@0
-      inputs:
-        versionSpec: '22.x'
-      displayName: 'Install Node.js'
-    
-    - script: npm ci
-      displayName: 'Install frontend dependencies'
-    
-    - script: |
-        cd backend
-        npm ci
-      displayName: 'Install backend dependencies'
-    
-    - script: npm run build
-      displayName: 'Build React app'
-    
-    - task: ArchiveFiles@2
-      displayName: 'Archive files'
-      inputs:
-        rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
-        includeRootFolder: false
-        archiveType: zip
-        archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
-    
-    - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
-      artifact: drop
-
-- stage: Deploy
-  displayName: Deploy stage
-  dependsOn: Build
-  jobs:
-  - deployment: Deploy
-    displayName: Deploy
-    environment: 'production'
-    pool:
-      vmImage: 'ubuntu-latest'
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - task: AzureWebApp@1
-            displayName: 'Azure Web App Deploy'
-            inputs:
-              azureSubscription: $(azureSubscription)
-              appType: 'webAppLinux'
-              appName: $(webAppName)
-              package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
-              startUpCommand: 'node backend/working-server.js'
+steps:
+- script: |
+    echo "Repository contents:"
+    ls -la
+    echo "Node.js version:"
+    node --version
+  displayName: 'Debug repository'
