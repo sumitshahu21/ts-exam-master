@@ -59,8 +59,17 @@ A comprehensive testing platform similar to Pearson's online exam system, built 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js 18+ 
-- npm or yarn
+- **Node.js** 18+
+- **npm** or **yarn**
+- **SQL Server Management Studio (SSMS)** (for database setup)
+
+## 🔹 Setup Instructions
+
+### 1. Database Setup
+1. Open **SSMS**.  
+2. Execute the SQL script provided in:  
+   ```bash
+   execute-this-in-ssms.sql
 
 ### Installation
 
@@ -89,3 +98,19 @@ A comprehensive testing platform similar to Pearson's online exam system, built 
 - `npm run build` - Build for production
 - `npm run preview` - Preview production build
 - `npm run lint` - Run ESLint
+
+### Backend Setup
+```bash
+   cd backend
+   ```
+```bash
+   npm install
+   ```
+```bash
+   node working-server.js
+   ```
+```bash
+    backend will be running at (http://localhost:5000)
+   ```
+  
+
