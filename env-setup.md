@@ -39,4 +39,4 @@ VITE_API_BASE_URL=/api
 - All variables should be set to **Production** environment
 - Do not include quotes around the values
 - The `VITE_API_BASE_URL=/api` allows frontend to use relative URLs
-- Backend will be accessible at `https://your-app.vercel.app/api/*`
+
