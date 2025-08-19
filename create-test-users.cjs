@@ -3,11 +3,11 @@ const bcrypt = require('bcryptjs');
 
 // Database configuration
 const config = {
-  server: 'ntms-sql-server.database.windows.net',
-  port: 1433,
-  database: 'exam_db',
-  user: 'ntms',
-  password: 'Dev@2024Test!',
+  server: process.env.DB_SERVER,
+  port: parseInt(process.env.DB_PORT) || 1433,
+  database: process.env.DB_NAME,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
   options: {
     encrypt: true,
     trustServerCertificate: false,
@@ -16,6 +16,7 @@ const config = {
   connectionTimeout: 30000,
   requestTimeout: 30000,
 };
+
 
 async function createTestUsers() {
   let pool;
