@@ -1,8 +1,3 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - main
 
@@ -25,18 +20,18 @@ stages:
       inputs:
         versionSpec: '22.x'
       displayName: 'Install Node.js'
-
+    
     - script: npm ci
       displayName: 'Install frontend dependencies'
-
+    
     - script: |
         cd backend
         npm ci
       displayName: 'Install backend dependencies'
-
+    
     - script: npm run build
       displayName: 'Build React app'
-
+    
     - task: ArchiveFiles@2
       displayName: 'Archive files'
       inputs:
@@ -44,7 +39,7 @@ stages:
         includeRootFolder: false
         archiveType: zip
         archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
-
+    
     - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
       artifact: drop
 
