@@ -7,11 +7,11 @@ Add these environment variables in your Vercel Dashboard:
 
 ### Database Configuration
 ```
-DB_SERVER=ntms-sql-server.database.windows.net
+DB_SERVER=""
 DB_PORT=1433
-DB_NAME=exam_db
+DB_NAME=""
 DB_USER=ntms
-DB_PASSWORD=Dev@2024Test!
+DB_PASSWORD=""
 DB_ENCRYPT=true
 DB_TRUST_SERVER_CERTIFICATE=false
 ```
@@ -29,7 +29,7 @@ EMAIL_HOST=smtp.gmail.com
 EMAIL_PORT=587
 EMAIL_SECURE=false
 EMAIL_USER=21107004.sumit.shahu@gmail.com
-EMAIL_PASS=tzie dwyq zuna ctqk
+EMAIL_PASS=""
 EMAIL_FROM=ExamMaster <21107004.sumit.shahu@gmail.com>
 ```
 
